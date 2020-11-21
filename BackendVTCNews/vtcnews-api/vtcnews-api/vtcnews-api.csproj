@@ -134,6 +134,7 @@
   <ItemGroup>
     <Compile Include="Api\AudioController.cs" />
     <Compile Include="Api\HomeController.cs" />
+    <Compile Include="Api\PodcastController.cs" />
     <Compile Include="Api\VideoController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />

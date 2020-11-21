@@ -174,6 +174,69 @@ namespace app.vtclive.Api.Home
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, e.Message);
             }
         }
+        [Route("news/GetVideoDetail/{Id}")]
+        public async Task<HttpResponseMessage> GetVideoDetail(int Id)
+        {
+            try
+            {
+                using (var httpClient = new HttpClient())
+                {
+                    string url = _playbackUrl + "api/news/GetVideoDetail?articleId="+Id;
+                    var responsePost = await httpClient.GetAsync(url);
+                    if (responsePost.IsSuccessStatusCode)
+                    {
+                        string responseBody = await responsePost.Content.ReadAsStringAsync();
+                        dynamic outputs = JsonConvert.DeserializeObject(responseBody);                       
+                        return Request.CreateResponse(HttpStatusCode.OK, (Object)outputs, Configuration.Formatters.JsonFormatter);
+                    }
+                    else
+                    {
+                        return Request.CreateResponse(HttpStatusCode.InternalServerError, false);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+        [Route("news/GetVideoHome/{Id}")]
+        public async Task<HttpResponseMessage> GetVideoHomeIdAsync(int Id)
+        {
+            try
+            {
+                using (var httpClient = new HttpClient())
+                {
+                    string url = _playbackUrl + "api/news/GetVideoHome";
+                    var responsePost = await httpClient.GetAsync(url);
+                    if (responsePost.IsSuccessStatusCode)
+                    {
+                        string responseBody = await responsePost.Content.ReadAsStringAsync();
+                        dynamic outputs = JsonConvert.DeserializeObject(responseBody);
+                        foreach (var output in outputs)
+                        {
+                            if(output.Id == Id)
+                            {
+                                output.image16_9 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_480x270", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
+                                output.image2_3 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_480x720", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
+                                output.image410_558 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_410x558", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
+                                return Request.CreateResponse(HttpStatusCode.OK, (Object)output, Configuration.Formatters.JsonFormatter);
+                            }
+                           
+                        }
+                        return Request.CreateResponse(HttpStatusCode.OK, false, Configuration.Formatters.JsonFormatter);
+                    }
+                    else
+                    {
+                        return Request.CreateResponse(HttpStatusCode.InternalServerError, false);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
         [Route("news/detail/{id}")]
         public async Task<HttpResponseMessage> GetDetailAsync(int id)
         {
@@ -299,5 +362,88 @@ namespace app.vtclive.Api.Home
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, e.Message);
             }
         }
+        [Route("news/comment/GetComment/{articleId}/{pageIndex}")]
+        public async Task<HttpResponseMessage> GetCommentAsync(int pageIndex, int articleId)
+        {
+            try
+            {
+                using (var httpClient = new HttpClient())
+                {                  
+                    string url = _playbackUrl + "api/comment/GetComment?articleId="+ articleId+"&pageIndex="+ pageIndex;
+                    var responsePost = await httpClient.GetAsync(url);
+                    if (responsePost.IsSuccessStatusCode)
+                    {
+                        string responseBody = await responsePost.Content.ReadAsStringAsync();
+
+                        dynamic outputs = JsonConvert.DeserializeObject(responseBody);                       
+                        return Request.CreateResponse(HttpStatusCode.OK, (Object)outputs, Configuration.Formatters.JsonFormatter);
+                    }
+                    else
+                    {
+                        return Request.CreateResponse(HttpStatusCode.InternalServerError, false);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+        [Route("comment/PostComment")]
+        public async Task<HttpResponseMessage> PostCommentAsync(string _username,string _email, long _idArticle, string _idComment, string _value)
+        {
+            try
+            {
+               string _token= LinkImg.GetTokenComment(_idArticle);
+                var  data = new  { token=_token, username = _username, email  = _email , idArticle = _idArticle , idComment = _idComment , value = _value };
+                using (var httpClient = new HttpClient())
+                {                  
+                    string url = _playbackUrl + "api/comment/PostComment?token="+ _token+"&username="+ _username+"&email="+_email+ "&idArticle="+ _idArticle+ "&idComment="+ _idComment + "&value="+ _value;
+                    var responsePost = await httpClient.PostAsJsonAsync(url, data);
+                    if (responsePost.IsSuccessStatusCode)
+                    {
+                        string responseBody = await responsePost.Content.ReadAsStringAsync();
+                        dynamic output = JsonConvert.DeserializeObject(responseBody);
+                        return Request.CreateResponse(HttpStatusCode.OK, (Object)output, Configuration.Formatters.JsonFormatter);
+                    }
+                    else
+                    {
+                        return Request.CreateResponse(HttpStatusCode.InternalServerError, false);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+        [Route("video/GetVideoById")]
+        public async Task<HttpResponseMessage> GetVideoByIdAsync(string text)
+        {
+            try
+            {
+                
+                using (var httpClient = new HttpClient())
+                {
+                    string url = _playbackUrl + "api/video/GetVideoById?plist=" + text;
+                    var responsePost = await httpClient.GetAsync(url);
+                    if (responsePost.IsSuccessStatusCode)
+                    {
+                        string responseBody = await responsePost.Content.ReadAsStringAsync();
+                        dynamic output = JsonConvert.DeserializeObject(responseBody);                      
+                        return Request.CreateResponse(HttpStatusCode.OK, (Object)output, Configuration.Formatters.JsonFormatter);
+                    }
+                    else
+                    {
+                        return Request.CreateResponse(HttpStatusCode.InternalServerError, false);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+        
     }
 }
