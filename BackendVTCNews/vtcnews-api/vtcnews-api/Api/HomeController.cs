@@ -92,8 +92,7 @@ namespace app.vtclive.Api.Home
                         foreach (var output in outputs)
                         {
                             output.image16_9 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_480x270", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
-                            output.image2_3 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_480x720", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
-                            output.image410_558 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_410x558", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
+                          
                         }
                         return Request.CreateResponse(HttpStatusCode.OK, (Object)outputs, Configuration.Formatters.JsonFormatter);
                     }
@@ -125,8 +124,7 @@ namespace app.vtclive.Api.Home
                         foreach (var output in outputs)
                         {
                             output.image16_9 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_480x270", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
-                            output.image2_3 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_480x720", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
-                            output.image410_558 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_410x558", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
+                           
                         }
                         return Request.CreateResponse(HttpStatusCode.OK, (Object)outputs, Configuration.Formatters.JsonFormatter);
                     }
@@ -158,8 +156,7 @@ namespace app.vtclive.Api.Home
                         foreach (var output in outputs)
                         {
                             output.image16_9 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_480x270", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
-                            output.image2_3 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_480x720", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
-                            output.image410_558 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_410x558", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
+                          
                         }
                         return Request.CreateResponse(HttpStatusCode.OK, (Object)outputs, Configuration.Formatters.JsonFormatter);
                     }
@@ -218,8 +215,7 @@ namespace app.vtclive.Api.Home
                             if(output.Id == Id)
                             {
                                 output.image16_9 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_480x270", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
-                                output.image2_3 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_480x720", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
-                                output.image410_558 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_410x558", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
+                              
                                 return Request.CreateResponse(HttpStatusCode.OK, (Object)output, Configuration.Formatters.JsonFormatter);
                             }
                            
@@ -315,7 +311,11 @@ namespace app.vtclive.Api.Home
                     if (responsePost.IsSuccessStatusCode)
                     {
                         string responseBody = await responsePost.Content.ReadAsStringAsync();
-                        dynamic outputs = JsonConvert.DeserializeObject(responseBody);                      
+                        dynamic outputs = JsonConvert.DeserializeObject(responseBody);
+                        foreach (var output in outputs.Items)
+                        {
+                            output.image16_9 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_480x270", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
+                        }
                         return Request.CreateResponse(HttpStatusCode.OK, (Object)outputs, Configuration.Formatters.JsonFormatter);
                     }
                     else
@@ -346,8 +346,7 @@ namespace app.vtclive.Api.Home
                         foreach (var output in outputs)
                         {
                             output.image16_9 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_480x270", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
-                            output.image2_3 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_480x720", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
-                            output.image410_558 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_410x558", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
+                           
                         }
                         return Request.CreateResponse(HttpStatusCode.OK, (Object)outputs, Configuration.Formatters.JsonFormatter);
                     }
@@ -444,6 +443,71 @@ namespace app.vtclive.Api.Home
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, e.Message);
             }
         }
-        
+
+        [Route("news/NewsHot/{categoryId}")]
+        public async Task<HttpResponseMessage> GetNewsHot(int categoryId)
+        {
+            try
+            {
+
+                using (var httpClient = new HttpClient())
+                {
+                    string url = _playbackUrl + "api/news/NewsHot?categoryId=" + categoryId;
+                    var responsePost = await httpClient.GetAsync(url);
+                    if (responsePost.IsSuccessStatusCode)
+                    {
+                        string responseBody = await responsePost.Content.ReadAsStringAsync();
+                        dynamic outputs = JsonConvert.DeserializeObject(responseBody);
+                        foreach (var output in outputs)
+                        {
+                            output.image16_9 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_480x270", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
+                           
+                        }
+                        return Request.CreateResponse(HttpStatusCode.OK, (Object)outputs, Configuration.Formatters.JsonFormatter);                    
+                    }
+                    else
+                    {
+                        return Request.CreateResponse(HttpStatusCode.InternalServerError, false);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+        [Route("news/ArticleCategoryPaging/{pageIndex}/{id}")]
+        public async Task<HttpResponseMessage> GetArticleCategoryPaging(int pageIndex, int id)
+        {
+            try
+            {
+
+                using (var httpClient = new HttpClient())
+                {
+                    string url = _playbackUrl + "api/news/ArticleCategoryPaging?pageIndex="+ pageIndex+"&id=" + id;
+                    var responsePost = await httpClient.GetAsync(url);
+                    if (responsePost.IsSuccessStatusCode)
+                    {
+                        string responseBody = await responsePost.Content.ReadAsStringAsync();
+                        dynamic outputs = JsonConvert.DeserializeObject(responseBody);
+                        foreach (var output in outputs)
+                        {
+                            output.image16_9 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_480x270", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
+
+                        }
+                        return Request.CreateResponse(HttpStatusCode.OK, (Object)outputs, Configuration.Formatters.JsonFormatter);
+                    }
+                    else
+                    {
+                        return Request.CreateResponse(HttpStatusCode.InternalServerError, false);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+
     }
 }
