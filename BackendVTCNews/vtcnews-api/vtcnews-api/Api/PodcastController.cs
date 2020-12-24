@@ -106,16 +106,20 @@ namespace vtcnews_api.Api
                 {
                     string url = _playbackUrl + "api/podcast/AlbumDetail?id=" + id;
                     var responsePost = await httpClient.GetAsync(url);
+                    var CountItem = 0;
                     if (responsePost.IsSuccessStatusCode)
                     {
                         string responseBody = await responsePost.Content.ReadAsStringAsync();
                         dynamic output = JsonConvert.DeserializeObject(responseBody);
                         output.Info.image182_182 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_182x182", (string)output.Info.ImageUrl) + "/" + (string)output.Info.ImageUrl;
-                        output.Info.image360_360 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_360x360", (string)output.Info.ImageUrl) + "/" + (string)output.Info.ImageUrl;   
+                        output.Info.image360_360 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_360x360", (string)output.Info.ImageUrl) + "/" + (string)output.Info.ImageUrl;
+                        
                         foreach(var item in output.Items)
                         {
+                            CountItem++;
                             item.image182_182 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_182x182", (string)output.Info.ImageUrl) + "/" + (string)output.Info.ImageUrl;
                         }
+                        output.Info.CountItem = CountItem;
                         return Request.CreateResponse(HttpStatusCode.OK, (Object)output, Configuration.Formatters.JsonFormatter);
                     }
                     else
