@@ -58,8 +58,8 @@ namespace app.vtclive.Api.Home
                         dynamic outputs = JsonConvert.DeserializeObject(responseBody);
                         foreach(var output in outputs)
                         {
-                            output.image16_9_large = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_480x270", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
-                            output.image16_9 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_160x90", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
+                            output.image16_9_large = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_600x400", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
+                            output.image16_9 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_172x110", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
                            
                            
                         }
@@ -92,7 +92,7 @@ namespace app.vtclive.Api.Home
                         dynamic outputs = JsonConvert.DeserializeObject(responseBody);
                         foreach (var output in outputs)
                         {
-                            output.image16_9 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_160x90", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
+                            output.image16_9 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_172x110", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
                           
                         }
                         return Request.CreateResponse(HttpStatusCode.OK, (Object)outputs, Configuration.Formatters.JsonFormatter);
@@ -124,7 +124,7 @@ namespace app.vtclive.Api.Home
                         dynamic outputs = JsonConvert.DeserializeObject(responseBody);
                         foreach (var output in outputs)
                         {
-                            output.image16_9 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_160x90", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
+                            output.image16_9 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_172x110", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
                            
                         }
                         return Request.CreateResponse(HttpStatusCode.OK, (Object)outputs, Configuration.Formatters.JsonFormatter);
@@ -156,8 +156,8 @@ namespace app.vtclive.Api.Home
                         dynamic outputs = JsonConvert.DeserializeObject(responseBody);
                         foreach (var output in outputs)
                         {
-                            output.image16_9_large = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_480x270", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
-                            output.image16_9 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_160x90", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
+                            output.image16_9_large = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_600x400", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
+                            output.image16_9 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_172x110", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
                           
                         }
                         return Request.CreateResponse(HttpStatusCode.OK, (Object)outputs, Configuration.Formatters.JsonFormatter);
@@ -216,7 +216,7 @@ namespace app.vtclive.Api.Home
                         {
                             if(output.Id == Id)
                             {
-                                output.image16_9 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_160x90", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
+                                output.image16_9 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_172x110", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
                               
                                 return Request.CreateResponse(HttpStatusCode.OK, (Object)output, Configuration.Formatters.JsonFormatter);
                             }
@@ -251,10 +251,10 @@ namespace app.vtclive.Api.Home
                     {
                         string responseBody = await responsePost.Content.ReadAsStringAsync();
                         dynamic outputs = JsonConvert.DeserializeObject(responseBody);
-                        outputs.image16_9 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_160x90", (string)outputs.DetailData.ImageUrl) + "/" + (string)outputs.DetailData.ImageUrl;
+                        outputs.image16_9 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_172x110", (string)outputs.DetailData.ImageUrl) + "/" + (string)outputs.DetailData.ImageUrl;
                         foreach (var output in outputs.ListArticleRelated)
                         {
-                            output.imagecrop = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_160x90", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
+                            output.imagecrop = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_172x110", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
                         }
                         return Request.CreateResponse(HttpStatusCode.OK, (Object)outputs, Configuration.Formatters.JsonFormatter);
                     }
@@ -287,7 +287,7 @@ namespace app.vtclive.Api.Home
                         dynamic outputs = JsonConvert.DeserializeObject(responseBody);
                         foreach (var output in outputs)
                         {
-                            output.image16_9 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_160x90", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
+                            output.image16_9 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_600x400", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
                         }
                         return Request.CreateResponse(HttpStatusCode.OK, (Object)outputs, Configuration.Formatters.JsonFormatter);
                     }
@@ -319,7 +319,7 @@ namespace app.vtclive.Api.Home
                         dynamic outputs = JsonConvert.DeserializeObject(responseBody);
                         foreach (var output in outputs.Items)
                         {
-                            output.image16_9 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_160x90", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
+                            output.image16_9 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_172x110", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
                         }
                         return Request.CreateResponse(HttpStatusCode.OK, (Object)outputs, Configuration.Formatters.JsonFormatter);
                     }
@@ -350,7 +350,7 @@ namespace app.vtclive.Api.Home
                         dynamic outputs = JsonConvert.DeserializeObject(responseBody);
                         foreach (var output in outputs)
                         {
-                            output.image16_9 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_160x90", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
+                            output.image16_9 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_172x110", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
                            
                         }
                         return Request.CreateResponse(HttpStatusCode.OK, (Object)outputs, Configuration.Formatters.JsonFormatter);
@@ -465,7 +465,7 @@ namespace app.vtclive.Api.Home
                         dynamic outputs = JsonConvert.DeserializeObject(responseBody);
                         foreach (var output in outputs)
                         {
-                            output.image16_9 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_160x90", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
+                            output.image16_9 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_172x110", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
                            
                         }
                         return Request.CreateResponse(HttpStatusCode.OK, (Object)outputs, Configuration.Formatters.JsonFormatter);                    
@@ -495,11 +495,24 @@ namespace app.vtclive.Api.Home
                     {
                         string responseBody = await responsePost.Content.ReadAsStringAsync();
                         dynamic outputs = JsonConvert.DeserializeObject(responseBody);
+                        List<string> listImgs = new List<string>();
                         foreach (var output in outputs)
                         {
-                            output.image16_9 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_160x90", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
-                            output.imagecrop = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_160x90", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
-
+                            
+                            string img = output.ListUrlImages;
+                            if(img.Length > 0)
+                            {
+                                string[] imgs = img.Split(';');
+                                foreach (var elm in imgs)
+                                {
+                                    string value = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_130x90", (string)elm) + "/" + (string)elm;
+                                    listImgs.Add(value);                                    
+                                }
+                                output.Imgs = JsonConvert.SerializeObject(listImgs);
+                            }                          
+                            
+                            output.image16_9 = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_172x110", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
+                            output.imagecrop = "https://image.vtc.vn/resize/" + LinkImg.GetStringEncryptImage("crop_172x110", (string)output.ImageUrl) + "/" + (string)output.ImageUrl;
                         }
                         return Request.CreateResponse(HttpStatusCode.OK, (Object)outputs, Configuration.Formatters.JsonFormatter);
                     }
